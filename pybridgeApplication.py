@@ -1,23 +1,24 @@
-import io, fasttext, sys, json
+import io, os, sys, json
+import fasttext
 import configparser
-import os
-import socket, pytest
+import socket
+import pytest
 from configparser import RawConfigParser
-
 from flask import Flask, jsonify, request
 from array import array
 from gensim.models import FastText
 
 #################################################################
 
-app = Flask(__name__)
+app = Flask(__name__) #server running on flask device
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+dir_path = os.path.dirname(os.path.realpath(__file__)) #file path of this file
 
 config = configparser.RawConfigParser()
-configFilePath = str(dir_path) + '\\config.cfg'
+configFilePath = str(dir_path) + '\\config.cfg' #configFile should be saved in the same folder and named config.cfg
 config.read(configFilePath)
 
+# Loading configuration from configuration file for url and port
 url_address = config['server']['ipAddress']
 port = config.getint('server', 'port')
 
@@ -34,6 +35,13 @@ def init_db():
 
 
 def load_vectors(filename, percentage_to_load):
+    """
+    This method loads the word vector model. The amount of vectors is dependent on size of model and loading percentage.
+
+    :param filename: word vector model
+    :param percentage_to_load: amount of vectors from model (default 10%)
+    :return: encoded data
+    """
     fin = io.open(filename, 'r', encoding='utf-8', newline='\n', errors='ignore')
     n, d = map(int, fin.readline().split())
     limit = n // 100
@@ -80,10 +88,24 @@ print("Loading successful.")
 
 
 def get_jsonified_vector(word, vector):
+    """
+    Putting word and vector data in a json object
+    :param word: from model's language
+    :param vector: values are floats
+    :return: json object
+    """
     return jsonify({'word': word, 'vector': list(vector)})
 
 
 def get_comparison(word1, word2, vector1, vector2):
+    """
+    Calculating the sum of all absolute differences between every vector entry.
+    :param word1: from model's language
+    :param word2: another word
+    :param vector1: first vector
+    :param vector2: another vector
+    :return: comparison as json object with tags word1, word2 and difference
+    """
     difference = 0
     for i in range(1, 300):
         difference += abs(vector1[i] - vector2[i])
@@ -92,6 +114,10 @@ def get_comparison(word1, word2, vector1, vector2):
 
 
 def shutdown_server():
+    """
+    Shutting down the server gracefully. User does not have to use ctrl + c.
+    :return:
+    """
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
@@ -132,6 +158,10 @@ def test_get_vector(self):
 
 @app.route('/')
 def main():
+    """
+    Main http route. Welcomes user on server and refers to /getVector/'word' route.
+    :return: Welcome message
+    """
     return "Welcome to the server. " \
            "To get a word vector, go to localhost/getVector/'word'"
 
@@ -149,14 +179,22 @@ def load_model(fname):
 
 @app.route('/getVector/')
 def get_vector_without_input():
+    """
+    No method to get all vectors. Parameter must be specified.
+    :return: Hint to getVector/'word'
+    """
     return "To get a word vector, please insert an input word behind the last slash"
 
 
-# Main route to receive a word vector to given word
-# Vector will be returned as json file
-# Method has been tested using: curl -v http://localhost/getVector/<word>
 @app.route('/getVector/<word>', methods={'GET'})
 def get_vector(word):
+    """
+    Main route to receive a word vector to given word
+    Vector will be returned as json file
+    Method has been tested using: curl -v http://localhost/getVector/<word>
+    :param word: for which you want to request a vector
+    :return: --
+    """
     try:
         return get_jsonified_vector(word, wordVectors[word])
     except TypeError as err:
@@ -183,11 +221,16 @@ def mainTest():
 
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
+    """
+    Route for shutting down the server gracefully.
+    :return: Success message
+    """
     shutdown_server()
     return 'Server shutting down'
 
 
 #####################################################################
 
+# Entry point for the program. Starting the application with url and port.
 if __name__ == '__main__':
     app.run(debug=True, host=url_address, port=port)
