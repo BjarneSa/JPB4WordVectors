@@ -1,0 +1,6 @@
+com\wordvector\pybridge\WordVectorProvider.class
+com\wordvector\pybridge\ConfigurationSettings.class
+com\wordvector\pybridge\App.class
+com\wordvector\pybridge\WordVector.class
+com\wordvector\pybridge\PythonBridge.class
+com\wordvector\pybridge\WordVectorDatabase.class
