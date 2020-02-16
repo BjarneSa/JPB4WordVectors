@@ -11,7 +11,7 @@ import java.util.*;
  * and you can get and save vectors by using methods from this class.
  * 
  * @author bjarne
- * @version 1.1
+ * @version 1.2
  */
 public class PythonBridge implements WordVectorProvider 
 {
@@ -81,7 +81,7 @@ public class PythonBridge implements WordVectorProvider
     /* (non-Javadoc)
      * @see com.wordvector.pybridge.WordVectorProvider#initServer()
      */
-    public boolean initServer() throws IOException, InterruptedException, IllegalArgumentException {
+    public boolean initServer() {
            PythonBridge.updatePythonFilePath();
            PythonBridge.updatePythonFileName();
            PythonBridge.updateLoadingPercentage();
@@ -97,35 +97,43 @@ public class PythonBridge implements WordVectorProvider
      * @throws IOException if response cannot be executed
      * @throws InterruptedException if process has been interrupted
      */
-    public boolean executeInitializingServer(String filePath, String dosCommand) throws IOException, InterruptedException {
-        if(this.isServerUp()) {
-            System.out.println("Server is already running.");
-            return true;
-        }
-        else {
-            ArrayList<String> dosCommands = new ArrayList<String>();
-            dosCommands.add(dosCommand);
-            File dir = new File(filePath);
-            
-            for (int i=0; i< dosCommands.size();i++){
-                System.out.println(
-                        processServerRunning = Runtime.getRuntime().exec(dosCommands.get(i), new String[0], dir)); 
-                System.out.println("Processing");
+    public boolean executeInitializingServer(String filePath, String dosCommand) {
+        try {
+            if(this.isServerUp()) {
+                System.out.println("Server is already running.");
+                return true;
+            }
+            else {
+                ArrayList<String> dosCommands = new ArrayList<String>();
+                dosCommands.add(dosCommand);
+                File dir = new File(System.getProperty("user.dir"));
                 
-                BufferedReader responseReader=new BufferedReader(new InputStreamReader(processServerRunning.getInputStream()));
-                String response = responseReader.readLine();
-                while(response != null) { 
-                    System.out.println(response);
+                for (int i=0; i< dosCommands.size();i++){
+                    System.out.println(
+                            processServerRunning = Runtime.getRuntime().exec(dosCommands.get(i), new String[0], dir));
+                    System.out.println("Processing");
                     
-                    if(response.contains("Debug mode")) { //Windows response after starting the server
-                        System.out.println("Server successfully started. Restart with stat possible.");
-                        return true;
+                    BufferedReader responseReader=new BufferedReader(new InputStreamReader(processServerRunning.getInputStream()));
+                    String response = responseReader.readLine();
+                    while(response != null) { 
+                        System.out.println(response);
+                        
+                        if(response.contains("Debug mode")) { //Windows response after starting the server
+                            System.out.println("Server successfully started. Restart with stat possible.");
+                            return true;
+                        }
+                        response = responseReader.readLine(); 
                     }
-                    response = responseReader.readLine(); 
                 }
             }
             return false;
         }
+        catch(IOException e) {
+            e.printStackTrace();    
+            System.out.println("Process execution caused an IOException. Server could not be started.");
+                return false;
+        }
+        
     }
     
     /**
@@ -133,11 +141,12 @@ public class PythonBridge implements WordVectorProvider
      * @return whether server is already up
      * @throws IOException from method getVector
      */
-    public boolean isServerUp() throws IOException {
-        try {
-            this.getVector("test");
+    public boolean isServerUp() {
+        WordVector vector = this.getVector("test");
+        Optional<WordVector> optionalVector = Optional.ofNullable(vector);
+        if(optionalVector.isPresent()) {
             return true;
-        } catch(java.net.ConnectException e) {
+        } else {
             return false;
         }
     }
@@ -153,7 +162,9 @@ public class PythonBridge implements WordVectorProvider
      */
     public void destroyProcessServerRunning() {
         if(processServerRunning != null) {
-              processServerRunning.destroy();
+            System.out.println(processServerRunning);
+            processServerRunning.destroy();
+            System.out.println("Exiting");
         }
     }
     
@@ -162,52 +173,65 @@ public class PythonBridge implements WordVectorProvider
      * Route: /shutdown
      * @throws IOException during interaction with HTTP requests
      */
-    public void shutdownServer() throws IOException {
-        URL url = new URL(serverDomain + "shutdown");
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        connection.setRequestMethod("GET");
-        if(connection.getResponseCode() == 200) {
-            System.out.println("Server shutting down...");
-        };
+    public boolean shutdownServer() {
+        try{
+            URL url = new URL(serverDomain + "shutdown");
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setRequestMethod("GET");
+            if(connection.getResponseCode() == 200) {
+                System.out.println("Server shutting down...");
+                return true;
+            } 
+            return false;
+        } catch(IOException e) {
+            System.out.println("Connection refused. No graceful shutdown possible.");
+            return false;
+        }
+        
     }
     
     /* (non-Javadoc)
      * @see com.wordvector.pybridge.WordVectorProvider#getVector(java.lang.String)
      */
-    public WordVector getVector(String word) throws IOException {
+    public WordVector getVector(String word) {
         if(db.getVectorToWord(word) != null) {
             return db.getVectorToWord(word); //Runtime improvement by using local database instead of requesting same vector repeatedly
         } else {
-            URL url = new URL(serverDomain + "getVector/" + word);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-            connection.setRequestMethod("GET");
-            int status = connection.getResponseCode();
-            if(status == 200) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuffer content = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                      content.append(inputLine);
-                  }
-                in.close();
-                
-                //Converting returned content (json) to array of float values
-                String contentString = content.toString();
-                String contentSubstringValues = content.substring(content.indexOf("[") +1, content.indexOf("]"));
-                String[] parts = contentSubstringValues.split(",");
-                
-                WordVector returnedVector = new WordVector(word);
-                ArrayList<Double> vectorData = new ArrayList<Double>();
-                for(int i=0; i<parts.length;i++) {
-                    vectorData.add(Double.parseDouble(parts[i]));
+            try {
+                URL url = new URL(serverDomain + "getVector/" + word);
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestMethod("GET");
+                int status = connection.getResponseCode();
+                if(status == 200) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String inputLine;
+                    StringBuffer content = new StringBuffer();
+                    while ((inputLine = in.readLine()) != null) {
+                          content.append(inputLine);
+                      }
+                    in.close();
+                    
+                    //Converting returned content (json) to array of float values
+                    String contentString = content.toString();
+                    String contentSubstringValues = content.substring(content.indexOf("[") +1, content.indexOf("]"));
+                    String[] parts = contentSubstringValues.split(",");
+                    
+                    WordVector returnedVector = new WordVector(word);
+                    ArrayList<Double> vectorData = new ArrayList<Double>();
+                    for(int i=0; i<parts.length;i++) {
+                        vectorData.add(Double.parseDouble(parts[i]));
+                    }
+                    returnedVector.setVector(vectorData);
+                    db.addVector(returnedVector);
+                    
+                    return returnedVector;
+                } else {
+                    return null;
                 }
-                returnedVector.setVector(vectorData);
-                db.addVector(returnedVector);
-                
-                return returnedVector;
-            } else {
-                throw new IOException("Could not return a valid word vector.");
             }
-        }
+            catch(IOException e) {
+                return null;
+            }
+            }      
     }
 }

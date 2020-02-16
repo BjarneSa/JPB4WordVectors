@@ -1,6 +1,7 @@
 package com.wordvector.pybridge;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,19 +21,20 @@ public class App
     {
         PythonBridge pythonBridge = new PythonBridge();
         
-        try {
-            if(pythonBridge.initServer()) {
-                TimeUnit.SECONDS.sleep(30);
-                WordVector returnedVector = pythonBridge.getVector("queen");
-                System.out.println(returnedVector.getWord() + " " + returnedVector.getVectorEntry(1));
-                pythonBridge.shutdownServer();
+        if(pythonBridge.initServer()) {
+            try {
+                TimeUnit.SECONDS.sleep(40);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (java.net.ConnectException e) {
-            System.out.println("Server is not reachable.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }   
+            WordVector returnedVector = pythonBridge.getVector("queen");
+            Optional<WordVector> optionalVector = Optional.ofNullable(returnedVector);
+            if(optionalVector.isPresent()) {
+                System.out.println(returnedVector.getWord() + " " + returnedVector.getVectorEntry(1));
+            } else {
+                System.out.println("Server did nt return a valid word vector.");
+            }
+            pythonBridge.shutdownServer();
+        }
     }
 }
