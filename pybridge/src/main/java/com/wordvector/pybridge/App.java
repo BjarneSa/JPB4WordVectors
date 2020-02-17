@@ -1,6 +1,5 @@
 package com.wordvector.pybridge;
 
-import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 
 /**
@@ -21,11 +20,6 @@ public class App
         PythonBridge pythonBridge = new PythonBridge();
         
         if(pythonBridge.initServer()) {
-            try {
-                TimeUnit.SECONDS.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             System.out.println("Server is ready for your requests. Type 'shutdown!' to shutdown the server.");
             boolean shutdownRequested = false;
             Scanner in = new Scanner(System.in);

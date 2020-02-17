@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.wordvector.pybridge.AppTest" time="62.92" tests="10" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.wordvector.pybridge.AppTest" time="24.478" tests="10" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="13"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="DE"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-13.0.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\bjarne\AppData\Local\Temp\surefire6704008694969419028\surefirebooter12966291061101910390.jar C:\Users\bjarne\AppData\Local\Temp\surefire6704008694969419028 2020-02-17T11-41-23_581-jvmRun1 surefire5229208478925672690tmp surefire_04659538346315045259tmp"/>
+    <property name="sun.java.command" value="C:\Users\bjarne\AppData\Local\Temp\surefire17003413126795571338\surefirebooter2267440006402981612.jar C:\Users\bjarne\AppData\Local\Temp\surefire17003413126795571338 2020-02-17T12-41-27_827-jvmRun1 surefire3903340722432067008tmp surefire_012962199255558128018tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\bjarne\eclipse-workspace\pybridge\target\test-classes;C:\Users\bjarne\eclipse-workspace\pybridge\target\classes;C:\Users\bjarne\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.0\junit-jupiter-engine-5.4.0.jar;C:\Users\bjarne\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-engine\1.4.0\junit-platform-engine-1.4.0.jar;C:\Users\bjarne\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\bjarne\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.0\junit-jupiter-api-5.4.0.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-launcher\1.5.1\junit-platform-launcher-1.5.1.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\bjarne\.m2\repository\org\json\json\20160810\json-20160810.jar;C:\Users\bjarne\.m2\repository\org\python\jython\2.7.0\jython-2.7.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -29,7 +29,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="C:\Users\bjarne\AppData\Local\Temp\surefire6704008694969419028\surefirebooter12966291061101910390.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\bjarne\AppData\Local\Temp\surefire17003413126795571338\surefirebooter2267440006402981612.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="13.0.1+9"/>
@@ -54,14 +54,14 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="57.0"/>
   </properties>
-  <testcase name="testSpecialCharacters" classname="com.wordvector.pybridge.AppTest" time="0.037"/>
-  <testcase name="testGetVectorToWordTwice" classname="com.wordvector.pybridge.AppTest" time="0.005"/>
-  <testcase name="testOneVectorFirstIndex" classname="com.wordvector.pybridge.AppTest" time="0.006"/>
+  <testcase name="testSpecialCharacters" classname="com.wordvector.pybridge.AppTest" time="0.562"/>
+  <testcase name="testGetVectorToWordTwice" classname="com.wordvector.pybridge.AppTest" time="0.004"/>
+  <testcase name="testOneVectorFirstIndex" classname="com.wordvector.pybridge.AppTest" time="0.005"/>
   <testcase name="testOneVectorLastIndex" classname="com.wordvector.pybridge.AppTest" time="0.005"/>
-  <testcase name="testGetSomeVectors" classname="com.wordvector.pybridge.AppTest" time="0.025"/>
-  <testcase name="testGetVectorToUnknownWord" classname="com.wordvector.pybridge.AppTest" time="0.018"/>
-  <testcase name="testIndexOutOfBound" classname="com.wordvector.pybridge.AppTest" time="0.008"/>
-  <testcase name="testVectorToNumbers" classname="com.wordvector.pybridge.AppTest" time="0.02"/>
-  <testcase name="testOneVectorSomeIndex" classname="com.wordvector.pybridge.AppTest" time="0.006"/>
-  <testcase name="testGetVectorOnLength" classname="com.wordvector.pybridge.AppTest" time="0.004"/>
+  <testcase name="testGetSomeVectors" classname="com.wordvector.pybridge.AppTest" time="0.024"/>
+  <testcase name="testGetVectorToUnknownWord" classname="com.wordvector.pybridge.AppTest" time="0.03"/>
+  <testcase name="testIndexOutOfBound" classname="com.wordvector.pybridge.AppTest" time="0.007"/>
+  <testcase name="testVectorToNumbers" classname="com.wordvector.pybridge.AppTest" time="0.026"/>
+  <testcase name="testOneVectorSomeIndex" classname="com.wordvector.pybridge.AppTest" time="0.008"/>
+  <testcase name="testGetVectorOnLength" classname="com.wordvector.pybridge.AppTest" time="0.006"/>
 </testsuite>

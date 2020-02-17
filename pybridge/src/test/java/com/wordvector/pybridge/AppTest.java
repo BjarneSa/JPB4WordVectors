@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.concurrent.TimeUnit;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,11 +27,6 @@ public class AppTest
     @BeforeAll
     public static void init() {
         pythonBridge.initServer();
-        try {
-            TimeUnit.SECONDS.sleep(35);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
     
     /**
