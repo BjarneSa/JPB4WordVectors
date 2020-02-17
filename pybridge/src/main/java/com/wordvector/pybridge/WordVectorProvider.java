@@ -1,6 +1,5 @@
 package com.wordvector.pybridge;
 
-import java.io.IOException;
 
 /**
  * This interface WordVectorProvider declares methods 

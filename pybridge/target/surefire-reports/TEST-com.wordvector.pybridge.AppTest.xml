@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.wordvector.pybridge.AppTest" time="62.92" tests="10" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="13"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\bjarne\eclipse-workspace\pybridge\target\test-classes;C:\Users\bjarne\eclipse-workspace\pybridge\target\classes;C:\Users\bjarne\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.0\junit-jupiter-engine-5.4.0.jar;C:\Users\bjarne\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-engine\1.4.0\junit-platform-engine-1.4.0.jar;C:\Users\bjarne\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\bjarne\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.0\junit-jupiter-api-5.4.0.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-launcher\1.5.1\junit-platform-launcher-1.5.1.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\bjarne\.m2\repository\org\json\json\20160810\json-20160810.jar;C:\Users\bjarne\.m2\repository\org\python\jython\2.7.0\jython-2.7.0.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="13"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="DE"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-13.0.1\bin"/>
+    <property name="sun.java.command" value="C:\Users\bjarne\AppData\Local\Temp\surefire6704008694969419028\surefirebooter12966291061101910390.jar C:\Users\bjarne\AppData\Local\Temp\surefire6704008694969419028 2020-02-17T11-41-23_581-jvmRun1 surefire5229208478925672690tmp surefire_04659538346315045259tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\bjarne\eclipse-workspace\pybridge\target\test-classes;C:\Users\bjarne\eclipse-workspace\pybridge\target\classes;C:\Users\bjarne\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.4.0\junit-jupiter-engine-5.4.0.jar;C:\Users\bjarne\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-engine\1.4.0\junit-platform-engine-1.4.0.jar;C:\Users\bjarne\.m2\repository\org\opentest4j\opentest4j\1.1.1\opentest4j-1.1.1.jar;C:\Users\bjarne\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.4.0\junit-jupiter-api-5.4.0.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-launcher\1.5.1\junit-platform-launcher-1.5.1.jar;C:\Users\bjarne\.m2\repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;C:\Users\bjarne\.m2\repository\org\json\json\20160810\json-20160810.jar;C:\Users\bjarne\.m2\repository\org\python\jython\2.7.0\jython-2.7.0.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\bjarne"/>
+    <property name="user.language" value="de"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2019-10-15"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-13.0.1"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\bjarne\eclipse-workspace\pybridge"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="surefire.real.class.path" value="C:\Users\bjarne\AppData\Local\Temp\surefire6704008694969419028\surefirebooter12966291061101910390.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="13.0.1+9"/>
+    <property name="user.name" value="bjarne"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\bjarne\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\bjarne\AppData\Local\Temp\"/>
+    <property name="java.version" value="13.0.1"/>
+    <property name="user.dir" value="C:\Users\bjarne\eclipse-workspace\pybridge"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-13.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_201/bin/server;C:/Program Files/Java/jre1.8.0_201/bin;C:/Program Files/Java/jre1.8.0_201/lib/amd64;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Java\jre1.8.0_201\bin;C:\Program Files (x86)\AOMEI Backupper;C:\Program Files\Git\cmd;C:\Users\bjarne\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\bjarne\AppData\Local\Programs\Python\Python37-32\;C:\Users\bjarne\AppData\Local\Microsoft\WindowsApps;;C:\WINDOWS\system32;;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="13.0.1+9"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="57.0"/>
+  </properties>
+  <testcase name="testSpecialCharacters" classname="com.wordvector.pybridge.AppTest" time="0.037"/>
+  <testcase name="testGetVectorToWordTwice" classname="com.wordvector.pybridge.AppTest" time="0.005"/>
+  <testcase name="testOneVectorFirstIndex" classname="com.wordvector.pybridge.AppTest" time="0.006"/>
+  <testcase name="testOneVectorLastIndex" classname="com.wordvector.pybridge.AppTest" time="0.005"/>
+  <testcase name="testGetSomeVectors" classname="com.wordvector.pybridge.AppTest" time="0.025"/>
+  <testcase name="testGetVectorToUnknownWord" classname="com.wordvector.pybridge.AppTest" time="0.018"/>
+  <testcase name="testIndexOutOfBound" classname="com.wordvector.pybridge.AppTest" time="0.008"/>
+  <testcase name="testVectorToNumbers" classname="com.wordvector.pybridge.AppTest" time="0.02"/>
+  <testcase name="testOneVectorSomeIndex" classname="com.wordvector.pybridge.AppTest" time="0.006"/>
+  <testcase name="testGetVectorOnLength" classname="com.wordvector.pybridge.AppTest" time="0.004"/>
+</testsuite>

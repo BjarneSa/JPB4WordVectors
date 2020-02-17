@@ -1,8 +1,7 @@
 package com.wordvector.pybridge;
 
-import java.io.IOException;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 /**
  * This is the class App.
@@ -23,18 +22,32 @@ public class App
         
         if(pythonBridge.initServer()) {
             try {
-                TimeUnit.SECONDS.sleep(40);
+                TimeUnit.SECONDS.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            WordVector returnedVector = pythonBridge.getVector("queen");
-            Optional<WordVector> optionalVector = Optional.ofNullable(returnedVector);
-            if(optionalVector.isPresent()) {
-                System.out.println(returnedVector.getWord() + " " + returnedVector.getVectorEntry(1));
-            } else {
-                System.out.println("Server did nt return a valid word vector.");
+            System.out.println("Server is ready for your requests. Type 'shutdown!' to shutdown the server.");
+            boolean shutdownRequested = false;
+            Scanner in = new Scanner(System.in);
+            while(!shutdownRequested) {
+                String s = in.nextLine();
+                if(s.equals("shutdown!")) {
+                    shutdownRequested = true;
+                    break;
+                }
+                System.out.println("You requested word vector for: " + s);
+                WordVector returnedVector = pythonBridge.getVector(s);
+                if(returnedVector != null) {
+                    System.out.println(pythonBridge.getVector(s).getVector());
+                } else {
+                System.out.println("The given input is not included in the model.");
+                }
             }
+            
+            in.close();
             pythonBridge.shutdownServer();
+        } else {
+            System.out.println("Server could not be started.");
         }
     }
 }

@@ -111,7 +111,7 @@ public class PythonBridge implements WordVectorProvider
                 for (int i=0; i< dosCommands.size();i++){
                     System.out.println(
                             processServerRunning = Runtime.getRuntime().exec(dosCommands.get(i), new String[0], dir));
-                    System.out.println("Processing");
+                    System.out.println("Processing...");
                     
                     BufferedReader responseReader=new BufferedReader(new InputStreamReader(processServerRunning.getInputStream()));
                     String response = responseReader.readLine();
@@ -212,7 +212,6 @@ public class PythonBridge implements WordVectorProvider
                     in.close();
                     
                     //Converting returned content (json) to array of float values
-                    String contentString = content.toString();
                     String contentSubstringValues = content.substring(content.indexOf("[") +1, content.indexOf("]"));
                     String[] parts = contentSubstringValues.split(",");
                     

@@ -1,7 +1,6 @@
 package com.wordvector.pybridge;
 
 import java.io.IOException;
-import java.util.*;
 import java.util.Properties;
 
 /**
