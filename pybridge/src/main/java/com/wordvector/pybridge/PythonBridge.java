@@ -115,23 +115,21 @@ public class PythonBridge implements WordVectorProvider {
             ArrayList<String> dosCommands = new ArrayList<>();
             dosCommands.add(dosCommand);
             Path path = Paths.get(Paths.get(System.getProperty("user.dir")).toString(), "src", "main", "resources");
-            System.out.println(path);
             File dir = path.toFile();
-            System.out.println(dir);
 
             for (String command : dosCommands) {
-                System.out.println(command);
-                System.out.println(processServerRunning = Runtime.getRuntime().exec(command, new String[0], dir));
-                System.out.println("Processing...");
+                logger.info(processServerRunning = Runtime.getRuntime().exec(command, new String[0], dir));
+                logger.info("Processing...");
 
                 BufferedReader responseReader = new BufferedReader(
                         new InputStreamReader(processServerRunning.getInputStream()));
                 String response = responseReader.readLine();
                 while (response != null) {
                     System.out.println(response);
+                    logger.info(response);
 
                     if (response.contains("Debug mode")) { // Windows response after starting the server
-                        System.out.println("Server successfully started. Restart with stat possible.");
+                        logger.info("Server successfully started. Restart with stat possible.");
                         return true;
                     }
                     response = responseReader.readLine();
