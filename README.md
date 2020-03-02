@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/BjarneSa/pybridge.svg?branch=master)](https://travis-ci.org/BjarneSa/pybridge)
 
-# pybridge
+# JPB4WV (Java-Python bridge for word vectors)
 Java-Python bridge for word vector learning model
 
 This is a project dealing with word embedding. Based on fastText, we have pre-trained models of word vectors.
