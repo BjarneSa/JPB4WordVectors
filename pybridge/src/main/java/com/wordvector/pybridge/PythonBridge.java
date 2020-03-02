@@ -29,7 +29,7 @@ public class PythonBridge implements WordVectorProvider {
     private int loadingPercentage;
 
     private WordVectorDatabase db;
-    private Process processServerRunning;
+    private Process serverStart;
     private int defaultLoadingPercentage = 10;
 
     final static Logger logger = LogManager.getLogger(PythonBridge.class);
@@ -118,11 +118,10 @@ public class PythonBridge implements WordVectorProvider {
             File dir = path.toFile();
 
             for (String command : dosCommands) {
-                logger.info(processServerRunning = Runtime.getRuntime().exec(command, new String[0], dir));
+                logger.info(serverStart = Runtime.getRuntime().exec(command, new String[0], dir));
                 logger.info("Processing...");
 
-                BufferedReader responseReader = new BufferedReader(
-                        new InputStreamReader(processServerRunning.getInputStream()));
+                BufferedReader responseReader = new BufferedReader(new InputStreamReader(serverStart.getInputStream()));
                 String response = responseReader.readLine();
                 while (response != null) {
                     logger.info(response);
@@ -160,8 +159,8 @@ public class PythonBridge implements WordVectorProvider {
         }
     }
 
-    public Process getProcessServerRunning() {
-        return processServerRunning;
+    public Process getServerStart() {
+        return serverStart;
     }
 
     /**
@@ -170,9 +169,9 @@ public class PythonBridge implements WordVectorProvider {
      * subprocesses.
      */
     public void destroyProcessServerRunning() {
-        if (processServerRunning != null) {
-            logger.debug(processServerRunning);
-            processServerRunning.destroy();
+        if (serverStart != null) {
+            logger.debug(serverStart);
+            serverStart.destroy();
             logger.debug("Exiting");
         }
     }
