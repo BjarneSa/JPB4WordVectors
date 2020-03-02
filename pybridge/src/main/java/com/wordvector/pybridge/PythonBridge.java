@@ -131,9 +131,11 @@ public class PythonBridge implements WordVectorProvider {
                         new InputStreamReader(processServerRunning.getInputStream()));
                 String response = responseReader.readLine();
                 while (response != null) {
+                    logger.error(response);
                     logger.info(response);
 
                     if (response.contains("Debug mode")) { // Windows response after starting the server
+                        logger.error("Started");
                         logger.info("Server successfully started. Restart with stat possible.");
                         return true;
                     }
@@ -219,7 +221,7 @@ public class PythonBridge implements WordVectorProvider {
             return db.getVectorToWord(word); // Runtime improvement by using local database instead of requesting same
                                              // vector repeatedly
         }
-
+        logger.error("getVector");
         Optional<WordVector> optionalVector = Optional.empty();
         try {
             URL url = new URL(serverDomain + "getVector/" + word);
