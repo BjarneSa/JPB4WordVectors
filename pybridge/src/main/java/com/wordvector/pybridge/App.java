@@ -18,6 +18,7 @@ import org.apache.logging.log4j.core.config.Configurator;
 public class App {
 
     private static Logger logger = LogManager.getLogger(App.class);
+    private static WordVectorProvider pythonBridge;
 
     /**
      * Main method: entry point of the program It initializes the server. Afterwards
@@ -29,7 +30,7 @@ public class App {
     public static void main(String[] args) {
         Configurator.setRootLevel(Level.DEBUG);
 
-        PythonBridge pythonBridge = new PythonBridge();
+        pythonBridge = new PythonBridge();
         if (pythonBridge.initServer()) {
             logger.info("Server is ready for your requests. Type 'shutdown!' to shutdown the server.");
             boolean shutdownRequested = false;

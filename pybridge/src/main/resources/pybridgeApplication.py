@@ -15,7 +15,7 @@ app = Flask(__name__) #server running on flask device
 dir_path = os.path.dirname(os.path.realpath(__file__)) #file path of this file
 
 config = configparser.RawConfigParser()
-configFilePath = os.path.join(dir_path, 'config.properties') #configFile should be saved in the same folder and named config.cfg
+configFilePath = os.path.join(dir_path, 'config.properties') #configFile should be saved in the same folder and named config.properties
 config.read(configFilePath)
 
 # Loading configuration from configuration file for url and port
@@ -77,11 +77,12 @@ if len(sys.argv) < 2:
     percentage_to_load = 10
     print("No word vector load percentage given. Using 10% (default)")
 else:
-    if int(sys.argv[1], 10) < 100:
+    if int(sys.argv[1], 10) <= 100:
         percentage_to_load = int(sys.argv[1], 10)
         print("Loading " + str(percentage_to_load) + "% of all word vectors.")
     else:
         percentage_to_load = 10
+        print(sys.argv[1])
         print("Word vector load percentage improper. Using 10% (default)")
 wordVectors = load_vectors(modelFileName, percentage_to_load)
 print("Loading successful.")

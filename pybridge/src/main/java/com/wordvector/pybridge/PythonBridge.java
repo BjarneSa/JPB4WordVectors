@@ -91,7 +91,6 @@ public class PythonBridge implements WordVectorProvider {
      */
     @Override
     public boolean initServer() {
-        logger.error("InitServer");
         configurePythonFileName();
         configureLoadingPercentage();
         return executeInitializingServer("python " + pythonFileName + " " + loadingPercentage);
@@ -108,8 +107,6 @@ public class PythonBridge implements WordVectorProvider {
      * @throws InterruptedException if process has been interrupted
      */
     public boolean executeInitializingServer(String dosCommand) {
-        logger.error("executeInit");
-        logger.error(dosCommand);
         try {
             if (isServerUp()) {
                 logger.info("Server is already running.");
@@ -119,23 +116,18 @@ public class PythonBridge implements WordVectorProvider {
             dosCommands.add(dosCommand);
             Path path = Paths.get(Paths.get(System.getProperty("user.dir")).toString(), "src", "main", "resources");
             File dir = path.toFile();
-            logger.error(dir);
 
             for (String command : dosCommands) {
-                logger.error("for-loop");
                 logger.info(processServerRunning = Runtime.getRuntime().exec(command, new String[0], dir));
-                logger.error("Runtime");
                 logger.info("Processing...");
 
                 BufferedReader responseReader = new BufferedReader(
                         new InputStreamReader(processServerRunning.getInputStream()));
                 String response = responseReader.readLine();
                 while (response != null) {
-                    logger.error(response);
                     logger.info(response);
 
                     if (response.contains("Debug mode")) { // Windows response after starting the server
-                        logger.error("Started");
                         logger.info("Server successfully started. Restart with stat possible.");
                         return true;
                     }
@@ -221,7 +213,6 @@ public class PythonBridge implements WordVectorProvider {
             return db.getVectorToWord(word); // Runtime improvement by using local database instead of requesting same
                                              // vector repeatedly
         }
-        logger.error("getVector");
         Optional<WordVector> optionalVector = Optional.empty();
         try {
             URL url = new URL(serverDomain + "getVector/" + word);
