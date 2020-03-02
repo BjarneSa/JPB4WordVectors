@@ -91,6 +91,7 @@ public class PythonBridge implements WordVectorProvider {
      */
     @Override
     public boolean initServer() {
+        logger.error("InitServer");
         configurePythonFileName();
         configureLoadingPercentage();
         return executeInitializingServer("python " + pythonFileName + " " + loadingPercentage);
@@ -107,6 +108,8 @@ public class PythonBridge implements WordVectorProvider {
      * @throws InterruptedException if process has been interrupted
      */
     public boolean executeInitializingServer(String dosCommand) {
+        logger.error("executeInit");
+        logger.error(dosCommand);
         try {
             if (isServerUp()) {
                 logger.info("Server is already running.");
@@ -116,9 +119,12 @@ public class PythonBridge implements WordVectorProvider {
             dosCommands.add(dosCommand);
             Path path = Paths.get(Paths.get(System.getProperty("user.dir")).toString(), "src", "main", "resources");
             File dir = path.toFile();
+            logger.error(dir);
 
             for (String command : dosCommands) {
+                logger.error("for-loop");
                 logger.info(processServerRunning = Runtime.getRuntime().exec(command, new String[0], dir));
+                logger.error("Runtime");
                 logger.info("Processing...");
 
                 BufferedReader responseReader = new BufferedReader(
