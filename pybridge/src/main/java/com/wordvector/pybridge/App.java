@@ -3,8 +3,10 @@ package com.wordvector.pybridge;
 import java.util.Optional;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 
 /**
  * This is the class App. It has method main which is the entry point of the
@@ -25,11 +27,11 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
+        Configurator.setRootLevel(Level.DEBUG);
+
         PythonBridge pythonBridge = new PythonBridge();
         if (pythonBridge.initServer()) {
             logger.info("Server is ready for your requests. Type 'shutdown!' to shutdown the server.");
-            System.out.println("Here");
-            System.out.println(logger.isDebugEnabled());
             boolean shutdownRequested = false;
             Scanner in = new Scanner(System.in);
             while (!shutdownRequested) {
@@ -38,14 +40,11 @@ public class App {
                     shutdownRequested = true;
                     break;
                 }
-                System.out.println("You requested word vector for: " + s);
                 logger.debug("You requested word vector for: " + s);
                 Optional<WordVector> optionalVector = pythonBridge.getVector(s);
                 if (optionalVector.isPresent()) {
-                    System.out.println(optionalVector.get().getVectorEntries());
                     logger.debug(optionalVector.get().getVectorEntries());
                 } else {
-                    System.out.println("The given input is not included in the model.");
                     logger.debug("The given input is not included in the model.");
                 }
             }

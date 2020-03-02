@@ -125,7 +125,6 @@ public class PythonBridge implements WordVectorProvider {
                         new InputStreamReader(processServerRunning.getInputStream()));
                 String response = responseReader.readLine();
                 while (response != null) {
-                    System.out.println(response);
                     logger.info(response);
 
                     if (response.contains("Debug mode")) { // Windows response after starting the server
