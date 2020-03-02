@@ -30,7 +30,6 @@ public class PythonBridge implements WordVectorProvider {
 
     private WordVectorDatabase db;
     private Process serverStart;
-    private int defaultLoadingPercentage = 10;
 
     final static Logger logger = LogManager.getLogger(PythonBridge.class);
 
@@ -73,14 +72,14 @@ public class PythonBridge implements WordVectorProvider {
                     && (Integer.parseInt(ConfigurationSettings.getProperty("loadingPercentage")) <= 100)) {
                 loadingPercentage = Integer.parseInt(ConfigurationSettings.getProperty("loadingPercentage"));
             } else {
-                loadingPercentage = defaultLoadingPercentage;
-                logger.warn("Loading percentage must be in [1;100]. Now using default loading percentage: "
-                        + defaultLoadingPercentage + "%.");
+                loadingPercentage = -1;
+                logger.warn(
+                        "Loading percentage must be in [1;100]. Now calling python without explicit loading percentage.");
             }
         } catch (NumberFormatException e) {
-            loadingPercentage = defaultLoadingPercentage;
-            logger.warn("Could not parse an integer from configuration file. Using default loading percentage: "
-                    + defaultLoadingPercentage + "%.");
+            loadingPercentage = -1;
+            logger.warn(
+                    "Could not parse an integer from configuration file. Now calling python without explicit loading percentage.");
         }
     }
 
@@ -93,7 +92,11 @@ public class PythonBridge implements WordVectorProvider {
     public boolean initServer() {
         configurePythonFileName();
         configureLoadingPercentage();
-        return executeInitializingServer("python " + pythonFileName + " " + loadingPercentage);
+        if ((loadingPercentage < 0) || (loadingPercentage > 100)) {
+            return executeInitializingServer("python " + pythonFileName);
+        } else {
+            return executeInitializingServer("python " + pythonFileName + " " + loadingPercentage);
+        }
     }
 
     /**
