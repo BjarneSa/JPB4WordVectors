@@ -117,7 +117,12 @@ public class PythonBridge implements WordVectorProvider {
             }
             ArrayList<String> dosCommands = new ArrayList<>();
             dosCommands.add(dosCommand);
-            Path path = Paths.get(Paths.get(System.getProperty("user.dir")).toString(), "src", "main", "resources");
+            Path p = Paths.get("");
+            System.out.println(p.toAbsolutePath().toString());
+            Path pathUserDir = Paths.get(System.getProperty("user.dir"));
+            System.out.println(pathUserDir);
+            Path path = Paths.get(pathUserDir.toString(), "src", "main", "resources");
+            System.out.println(path.toAbsolutePath().toString());
             File dir = path.toFile();
 
             for (String command : dosCommands) {
@@ -125,6 +130,14 @@ public class PythonBridge implements WordVectorProvider {
                 logger.info("Processing...");
 
                 BufferedReader responseReader = new BufferedReader(new InputStreamReader(serverStart.getInputStream()));
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(serverStart.getErrorStream()));
+                if (errorReader.ready()) {
+                    String errorMessage = errorReader.readLine();
+                    while (errorMessage != null) {
+                        logger.error(errorMessage);
+                        errorMessage = errorReader.readLine();
+                    }
+                }
                 String response = responseReader.readLine();
                 while (response != null) {
                     logger.info(response);
