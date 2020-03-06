@@ -132,6 +132,7 @@ public class PythonBridge implements WordVectorProvider {
                 BufferedReader responseReader = new BufferedReader(new InputStreamReader(serverStart.getInputStream()));
                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(serverStart.getErrorStream()));
                 if (errorReader.ready()) {
+                    System.out.println("ErrorStream ready");
                     String errorMessage = errorReader.readLine();
                     while (errorMessage != null) {
                         logger.error(errorMessage);
@@ -140,6 +141,7 @@ public class PythonBridge implements WordVectorProvider {
                 }
                 String response = responseReader.readLine();
                 while (response != null) {
+                    System.out.println("Response");
                     logger.info(response);
 
                     if (response.contains("Debug mode")) { // Windows response after starting the server
