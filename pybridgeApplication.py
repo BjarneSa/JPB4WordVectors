@@ -58,8 +58,8 @@ def load_vectors(filename, percentage_to_load):
             outputString = "    (" + numString + "%)"
             if cnt != 0:
                 for c in outputString:
-                    print("\b", end='')
-            print(outputString, end='')
+                    print("\b")
+            print(outputString)
             # For test purposes.
             if printedOutNumber >= percentage_to_load:
                 break
