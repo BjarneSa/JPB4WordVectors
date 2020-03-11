@@ -25,6 +25,7 @@ public class AppTest {
      */
     @BeforeAll
     public static void init() {
+        System.out.println("Before All");
         pythonBridge.initServer();
     }
 
@@ -48,7 +49,8 @@ public class AppTest {
                 e.printStackTrace();
             }
         }
-        assertEquals(0.08969999849796295, pythonBridge.getVector("the").get().getVectorEntry(0), delta);
+            assertEquals(0.08969999849796295, pythonBridge.getVector("the").get().getVectorEntry(0), delta);
+        }
     }
 
 //    /**
