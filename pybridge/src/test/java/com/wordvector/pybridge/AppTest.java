@@ -2,6 +2,8 @@ package com.wordvector.pybridge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,6 +39,15 @@ public class AppTest {
 
     @Test
     public void testVector() {
+        if (!pythonBridge.isServerUp()) {
+            System.out.println("Sleep");
+            try {
+                TimeUnit.SECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         assertEquals(0.08969999849796295, pythonBridge.getVector("the").get().getVectorEntry(0), delta);
     }
 
