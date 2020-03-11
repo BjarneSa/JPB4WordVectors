@@ -7,9 +7,12 @@ cache:
   directories:
    - $HOME/.m2
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install python3
+addons:
+  apt: 
+    sources: 
+      - deadsnakes
+    packages:
+      - python3.4
    
 install:
   - pip install -r requirements.txt
