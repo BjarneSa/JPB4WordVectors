@@ -17,4 +17,4 @@ addons:
 install:
   - pip install -r requirements.txt
 
-script: python pybridgeApplication.py
+script: mvn clean verify -f pybridge
