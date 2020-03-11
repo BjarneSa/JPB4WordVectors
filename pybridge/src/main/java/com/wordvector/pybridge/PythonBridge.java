@@ -49,6 +49,7 @@ public class PythonBridge implements WordVectorProvider {
      */
     public void configureServerDomain() {
         serverDomain = ConfigurationSettings.getProperty("serverURLName");
+        serverDomain = serverDomain + ":" + ConfigurationSettings.getProperty("port") + "/";
     }
 
     /**
@@ -142,6 +143,7 @@ public class PythonBridge implements WordVectorProvider {
                 String response = responseReader.readLine();
                 while (response != null) {
                     System.out.println("Response");
+                    System.out.println(response);
                     logger.info(response);
 
                     if (response.contains("Debug mode")) { // Windows response after starting the server
