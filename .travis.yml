@@ -1,6 +1,6 @@
 language: java
 os: 
-  - linux
+  - windows
 jdk: 
   - openjdk11
 cache:
