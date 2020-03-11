@@ -1,11 +1,14 @@
-language: java
-os:
-  - linux
-jdk:
-  - openjdk11
-cache:
-  directories:
-   - $HOME/.m2
+matrix:
+  include:
+    -language: java
+      os: linux
+      jdk: openjdk11
+    cache:
+      directories:
+       - $HOME/.m2
+       
+     -language: python
+      python: 3.7
    
 install:
   - pip install -r requirements.txt
