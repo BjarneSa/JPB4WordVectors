@@ -98,5 +98,50 @@ def shutdown_server():
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
+    
+@app.route('/')
+def main():
+    """
+    Main http route. Welcomes user on server and refers to /getVector/'word' route.
+    :return: Welcome message
+    """
+    return "Welcome to the server. " \
+           "To get a word vector, go to localhost/getVector/'word'"
+
+
+@app.route('/getVector/')
+def get_vector_without_input():
+    """
+    No method to get all vectors. Parameter must be specified.
+    :return: Hint to getVector/'word'
+    """
+    return "To get a word vector, please insert an input word behind the last slash"
+
+
+@app.route('/getVector/<word>', methods={'GET'})
+def get_vector(word):
+    """
+    Main route to receive a word vector to given word
+    Vector will be returned as json file
+    Method has been tested using: curl -v http://localhost/getVector/<word>
+    :param word: for which you want to request a vector
+    :return: --
+    """
+    try:
+        return get_jsonified_vector(word, wordVectors[word])
+    except TypeError as err:
+        raise TypeError('The given input ' + str(err) + 'cannot be converted to String ')
+    except KeyError as err:
+        raise KeyError(' The given word ' + str(err) + 'was not found in the current model. Please try another, '
+                                                       'more common word.')
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    """
+    Route for shutting down the server gracefully.
+    :return: Success message
+    """
+    shutdown_server()
+    return 'Server shutting down'
+
 
 print('Hello world')
