@@ -6,7 +6,6 @@ import pytest
 from configparser import RawConfigParser
 from flask import Flask, jsonify, request
 from array import array
-from gensim.models import FastText
 
 #################################################################
 
