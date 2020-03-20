@@ -23,4 +23,61 @@ model = None
 wordVectors = None
 modelFileName = config['vectors']['modelFileName']
 
+def init_db():
+    return
+
+
+def load_vectors(filename, percentage_to_load):
+    """
+    This method loads the word vector model. The amount of vectors is dependent on size of model and loading percentage.
+
+    :param filename: word vector model
+    :param percentage_to_load: amount of vectors from model (default 10%)
+    :return: encoded data
+    """
+    fin = io.open(filename, 'r', encoding='utf-8', newline='\n', errors='ignore')
+    n, d = map(int, fin.readline().split())
+    limit = n // 100
+    limit_inc = n // 100
+    cnt = 0
+
+    data = {}
+    print("Found " + str(n * percentage_to_load) + " word vectors of dimension " + str(d))
+    for line in fin:
+        if cnt == limit:
+            limit += limit_inc
+            printedOutNumber = cnt / n * 100
+            numString = "{0:.2f}".format(printedOutNumber)
+            outputString = "    (" + numString + "%)"
+            if cnt != 0:
+                for c in outputString:
+                    print("\b")
+            print(outputString)
+            # For test purposes.
+            if printedOutNumber >= percentage_to_load:
+                break
+
+        cnt = cnt + 1
+        tokens = line.rstrip().split(' ')
+        # data[tokens[0]] = array('f', map(float, tokens[1:]))
+        data[tokens[0]] = array('f', [float(x) for x in tokens[1:]])
+    print()
+    return data
+
+
+print("To use the pybridge server, a model of word vectors will be loaded now. This can take a moment.")
+if len(sys.argv) < 2:
+    percentage_to_load = 10
+    print("No word vector load percentage given. Using 10% (default)")
+else:
+    if int(sys.argv[1], 10) <= 100:
+        percentage_to_load = int(sys.argv[1], 10)
+        print("Loading " + str(percentage_to_load) + "% of all word vectors.")
+    else:
+        percentage_to_load = 10
+        print(sys.argv[1])
+        print("Word vector load percentage improper. Using 10% (default)")
+wordVectors = load_vectors(modelFileName, percentage_to_load)
+print("Loading successful.")
+
 print('Hello world')
