@@ -80,4 +80,23 @@ else:
 wordVectors = load_vectors(modelFileName, percentage_to_load)
 print("Loading successful.")
 
+def get_jsonified_vector(word, vector):
+    """
+    Putting word and vector data in a json object
+    :param word: from model's language
+    :param vector: values are floats
+    :return: json object
+    """
+    return jsonify({'word': word, 'vector': list(vector)})
+
+def shutdown_server():
+    """
+    Shutting down the server gracefully. User does not have to use ctrl + c.
+    :return:
+    """
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
 print('Hello world')
