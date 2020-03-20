@@ -139,7 +139,7 @@ public class PythonBridge implements WordVectorProvider {
                 while (response != null) {
                     logger.info(response);
 
-                    if (response.contains("Running on")) { // Windows response after starting the server
+                    if (response.contains("Debug mode")) { // Windows response after starting the server
                         logger.info("Server successfully started. Restart with stat possible.");
                         return true;
                     }
@@ -147,6 +147,7 @@ public class PythonBridge implements WordVectorProvider {
 
                 }
             }
+            logger.debug(serverStart.exitValue());
             return false;
         } catch (IOException e) {
             e.printStackTrace();
