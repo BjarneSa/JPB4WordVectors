@@ -120,20 +120,15 @@ public class PythonBridge implements WordVectorProvider {
             dosCommands.add(dosCommand);
             Path pathUserDir = Paths.get(System.getProperty("user.dir"));
             Path path = Paths.get(pathUserDir.toString(), "src", "main", "resources");
-            System.out.println(path.toAbsolutePath().toString());
             File dir = path.toFile();
-            System.out.println(dir.canExecute());
 
             for (String command : dosCommands) {
                 logger.info(serverStart = Runtime.getRuntime().exec(command, new String[0], dir));
-                System.out.println(serverStart);
                 logger.info("Processing...");
-                System.out.println("Processing");
 
                 BufferedReader responseReader = new BufferedReader(new InputStreamReader(serverStart.getInputStream()));
                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(serverStart.getErrorStream()));
                 if (errorReader.ready()) {
-                    System.out.println("ErrorStream ready");
                     String errorMessage = errorReader.readLine();
                     while (errorMessage != null) {
                         logger.error(errorMessage);
@@ -142,11 +137,9 @@ public class PythonBridge implements WordVectorProvider {
                 }
                 String response = responseReader.readLine();
                 while (response != null) {
-                    System.out.println("Response");
-                    System.out.println(response);
                     logger.info(response);
 
-                    if (response.contains("Debug mode")) { // Windows response after starting the server
+                    if (response.contains("Running on")) { // Windows response after starting the server
                         logger.info("Server successfully started. Restart with stat possible.");
                         return true;
                     }
@@ -154,8 +147,6 @@ public class PythonBridge implements WordVectorProvider {
 
                 }
             }
-            System.out.println(serverStart);
-            System.out.println(serverStart.exitValue());
             return false;
         } catch (IOException e) {
             e.printStackTrace();
