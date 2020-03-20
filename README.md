@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BjarneSa/pybridge.svg?branch=master)](https://travis-ci.org/BjarneSa/pybridge)
+[![Build Status](https://travis-ci.org/BjarneSa/JPB4WordVectors.svg?branch=master)](https://travis-ci.org/BjarneSa/JPB4WordVectors)
 
 # JPB4WordVectors
 Java-Python bridge for word vector learning model
