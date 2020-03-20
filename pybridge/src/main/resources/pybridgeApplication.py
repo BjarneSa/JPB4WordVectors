@@ -123,36 +123,6 @@ def shutdown_server():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
-##############################################################################
-
-def test_server_port():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    result = sock.connect_ex((url_address, port))
-    if result == 0:
-        return True
-    else:
-        return False
-
-
-def test_server_ip():
-    timeout = 5
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(timeout)
-    try:
-        s.connect(url_address)
-        s.shutdown(socket.SHUT_RDWR)
-        return True
-    except:
-        return False
-    finally:
-        s.close()
-
-
-def test_get_vector(self):
-    request_king = get_vector('king')
-    data_king = json.loads(request_king.content)
-    assert data_king["0"] == 0.10819999873638153
-
 
 ##############################################################################
 
@@ -165,16 +135,6 @@ def main():
     return "Welcome to the server. " \
            "To get a word vector, go to localhost/getVector/'word'"
 
-
-# This method requires a file of type .bin
-@app.route('/loadModel/<fname>')
-def load_model(fname):
-    model = fasttext.load_model(fname)
-    # model = FastText.load_fasttext_format(fname) #trying alternatively but still causing error (too long)
-    if model is None:
-        return "Loading file has failed"
-    else:
-        return "Loading successful"
 
 
 @app.route('/getVector/')
@@ -203,20 +163,10 @@ def get_vector(word):
         raise KeyError(' The given word ' + str(err) + 'was not found in the current model. Please try another, '
                                                        'more common word.')
 
+        
 @app.route('/compare/<word1>_<word2>')
 def compare_two_words(word1, word2):
     return get_comparison(word1, word2, wordVectors[word1], wordVectors[word2])
-
-
-@app.route('/test/')
-def mainTest():
-    if test_server_port():
-        if test_server_ip():
-            return "Server is up and port is open"
-        else:
-            return "Port is open but socket ip test failed"
-    else:
-        return "Server is not running on the given ip and port"
 
 
 @app.route('/shutdown', methods=['GET'])
