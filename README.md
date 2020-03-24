@@ -16,6 +16,6 @@ Every returned vector can be converted to a java object and saved in a word vect
 The setup has been tested with JUnit 5 and Python Unittest.
 
 To use the server by yourself, please configure the environment using the java and python configuration files.
-By default, the server is running on localhost and port 80.
+For more information, please read the documentation. [a relative link](DOCUMENTATION.markdown)
 
 Thanks for reading! Enjoy!
