@@ -7,9 +7,10 @@ Documentation python-java-bridge for word vector learning model
 	Please note that the word vector file must be of type .vec.
 
 2. Configure server settings:
-	By default, the server runs on localhost and port 80.
+	By default, the server runs on localhost and port 2525.
 	You can change the url and port in the configuration file.
-	The server has only been tested on localhost yet. Different ports did not cause problems.
+	The server has only been tested on localhost yet. The project definitely allows different ports.
+	Linux systems only allow the occupancy of ports greater 1024.
 
 3. Python reference:
 	Java calls a python file to start a python server using flask.
@@ -30,8 +31,8 @@ Documentation python-java-bridge for word vector learning model
 	Java side has been tested with JUnit, Python with unittest.
 	Simple tests are included in the Maven build.
 	Therefore, AppTest starts the server, request some vectors, which will be compared to exact values from the model, and shuts the server down.
-	Please note that test result can be dependent on the size of the learning model and on load percentage.
 	To only test python side, use file 'test_pybridge.py'.
+	Please note that test result can be dependent on the size of the learning model and on load percentage.
 
 6. Logging:
 	log4j is included in the project.
